@@ -33,9 +33,10 @@ function expandHome(p: string): string {
 // ── Banner ───────────────────────────────────────────────────────────────────
 function loadBanner(): string {
   try {
-    return fs.readFileSync(path.join(PROJECT_ROOT, 'banner.txt'), 'utf-8');
+    const banner = fs.readFileSync(path.join(PROJECT_ROOT, 'banner.txt'), 'utf-8');
+    return '\x1b[38;2;50;205;50m' + banner + '\x1b[0m';
   } catch {
-    return '\n  ClaudeClaw\n';
+    return '\n  RoboClaw\n';
   }
 }
 

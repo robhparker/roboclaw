@@ -82,9 +82,9 @@ function showBanner(): void {
   const bannerPath = path.join(PROJECT_ROOT, 'banner.txt');
   try {
     const banner = fs.readFileSync(bannerPath, 'utf-8');
-    console.log('\n' + banner);
+    console.log('\n\x1b[38;2;50;205;50m' + banner + '\x1b[0m');
   } catch {
-    console.log('\n  ClaudeClaw\n');
+    console.log('\n  RoboClaw\n');
   }
 }
 
