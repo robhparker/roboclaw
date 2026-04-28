@@ -13,7 +13,11 @@ import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import type { Mock } from 'vitest';
 import { extractFileMarkers } from './bot.js';
+
+type ReplyMock = Mock<(text: string) => Promise<unknown>>;
+type SendMediaMock = Mock<(file: string, opts?: { caption: string }) => Promise<unknown>>;
 
 // ── Helper: create a temp file with known content ───────────────────
 function createTempFile(filename: string, content: string): string {
@@ -53,9 +57,9 @@ function loadEnv(): { token: string; chatId: string } {
 // ── Unit tests: extractFileMarkers → mocked Grammy context ─────────
 describe('file sending: mocked Grammy context', () => {
   let mockCtx: {
-    reply: ReturnType<typeof vi.fn>;
-    replyWithDocument: ReturnType<typeof vi.fn>;
-    replyWithPhoto: ReturnType<typeof vi.fn>;
+    reply: ReplyMock;
+    replyWithDocument: SendMediaMock;
+    replyWithPhoto: SendMediaMock;
     chat: { id: number };
   };
 
